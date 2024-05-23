@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <script src="https://kit.fontawesome.com/f1e18a8a64.js" crossorigin="anonymous"></script>
+    <script src="../Components/Component.js"></script>
+    <script src="../Components/Recipient.js"></script>
+    <script src="../Components/Container.js"></script>
+    <script src="../Components/Fieldset.js"></script>
+    <script src="../Components/Form.js"></script>
+    <script src="../Components/Field.js"></script>
+    <script src="../Components/FormField.js"></script>
+</head>
+<body>
+    <container-component id="form-container"></container-component>
+
+    <script>
+        const container = document.getElementById('form-container');
+        const form = new Form();
+        form.addComponent(criaFormField('text', 'teste', 'teste'));
+        form.addComponent(criaFormField('text', 'coluna', 'coluna'));
+        
+        const form_container = new Container();
+        form_container.addComponent(criaFormField('text', 'teste', 'teste'));
+        form_container.addComponent(criaFormField('text', 'coluna', 'coluna'));
+
+        const fieldset = new Fieldset();
+        fieldset.setTitle('teste');
+        fieldset.addComponent(criaFormField('text', 'teste', 'teste'));
+        fieldset.addComponent(criaFormField('text', 'coluna', 'coluna'));
+
+        form.addComponent(form_container);
+        form.addComponent(fieldset);
+        container.addComponent(form);
+
+        function criaFormField(type, name, title) {
+            let formField = new FormField();
+            formField.setType(type);
+            formField.setName(name);
+            formField.setTitle(title);
+
+            return formField;
+        }
+    </script>
+</body>
+</html>

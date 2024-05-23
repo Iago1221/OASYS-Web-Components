@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid</title>
+    <script src="https://kit.fontawesome.com/f1e18a8a64.js" crossorigin="anonymous"></script>
+    <script src="../Components/Component.js"></script>
+    <script src="../Components/Recipient.js"></script>
+    <script src="../Components/Container.js"></script>
+    <script src="../Components/Grid.js"></script>
+    <script src="../Components/Field.js"></script>
+    <script src="../Components/FilterField.js"></script>
+    <script src="../Components/Fieldset.js"></script>
+    <script src="../Components/Form.js"></script>
+    <script src="../Components/FormField.js"></script>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }        
+
+</style>
+<body>
+    <container-component id="grid-container"></container-component>
+
+    <script>
+
+        const container = document.getElementById('grid-container');
+        const grid = new Grid();
+        grid.addActionIncluir('');
+        grid.addActionEditar('');
+        grid.addActionExcluir('');
+        grid.addColum({name: 'teste', title : 'teste', visible : 'true'});
+        grid.addColum({name: 'coluna', title : 'coluna', visible : 'true'});
+        grid.addRow({id: 1, teste: 'valor teste', coluna: 'valor coluna'});
+        grid.addRow({id: 1, coluna: 'valor coluna 2', teste: 'valor teste 2'});
+        grid.setFooterInfos(['1', '1', '1'])
+
+        const field = new FilterField();
+        field.setType('text');
+        field.setName('teste');
+        field.setTitle('Teste');
+
+        grid.addFilter(field);
+
+
+        const formcontainer = new Container();
+        const form = new Form();
+        form.addComponent(criaFormField('text', 'teste', 'teste'));
+        form.addComponent(criaFormField('text', 'coluna', 'coluna'));
+        
+        const form_container = new Container();
+        form_container.addComponent(criaFormField('text', 'teste', 'teste'));
+        form_container.addComponent(criaFormField('text', 'coluna', 'coluna'));
+
+        const fieldset = new Fieldset();
+        fieldset.setTitle('teste');
+        fieldset.addComponent(criaFormField('text', 'teste', 'teste'));
+        fieldset.addComponent(criaFormField('text', 'coluna', 'coluna'));
+
+        form.addComponent(form_container);
+        form.addComponent(fieldset);
+        formcontainer.addComponent(form);
+        
+        formcontainer.setWidth('850px');
+        formcontainer.setHeight('550px');
+        
+        formcontainer.setStyle(`
+            *{
+                position: absolute;
+                left: 20%;
+                top:  10%;
+            } `);
+            
+        function criaFormField(type, name, title) {
+            let formField = new FormField();
+            formField.setType(type);
+            formField.setName(name);
+            formField.setTitle(title);
+            
+            return formField;
+        }
+
+
+        const formcontainer2 = new Container();
+        formcontainer2.setWidth('300px');
+        formcontainer2.setHeight('300px');
+        const form2 = new Form();
+        form2.setTitle('Form 2');
+
+        const fieldset2 = new Fieldset();
+        fieldset2.setTitle('teste');
+        fieldset2.addComponent(criaFormField('text', 'teste', 'teste'));
+        fieldset2.addComponent(criaFormField('text', 'coluna', 'coluna'));
+
+        formcontainer2.setStyle(`
+            *{
+                position: absolute;
+                left: 20%;
+                top:  10%;
+            } `);
+
+        form2.addComponent(fieldset2);
+        formcontainer2.addComponent(form2);
+        
+        container.setDraggableContainer();
+        formcontainer.setDraggable();
+        formcontainer2.setDraggable();
+        
+        container.addComponent(grid);
+        container.addComponent(formcontainer);
+        // container.addComponent(formcontainer2);
+
+    </script>
+</body>
+</html>
